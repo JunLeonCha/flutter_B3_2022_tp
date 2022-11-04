@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/address.dart';
 import '../../models/company.dart';
 
 class Home extends StatefulWidget {
@@ -11,9 +12,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<Company> _companies = [
-    const Company(0, 'Entreprise 1'),
-    const Company(1, 'Entreprise 2'),
-    const Company(2, 'Entreprise 3'),
+    Company(0, 'Entreprise 1', Address('street', 'city', 'postcode')),
+    Company(1, 'Entreprise 2', Address('street', 'city', 'postcode')),
+    Company(2, 'Entreprise 3', Address('street', 'city', 'postcode')),
   ];
 
   @override
@@ -27,9 +28,11 @@ class _HomeState extends State<Home> {
         itemBuilder: (BuildContext context, int index) {
           final Company company = _companies[index];
           return ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.apartment),
-              title: Text(company.name));
+            leading: const Icon(Icons.apartment),
+            title: Text(company.name),
+            subtitle: Text(
+                '${company.address.street}, ${company.address.postcode} ${company.address.city}'),
+          );
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(height: 0);
